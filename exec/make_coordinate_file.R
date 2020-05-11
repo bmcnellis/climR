@@ -1,7 +1,6 @@
+library(sp)
 
-plot_locations <- read.csv(paste0(getwd(), '/inst/example_datasets/JSFP/plot_locations.csv'),
-                           stringsAsFactors = F)
-
+plot_locations <- read.csv('/mnt/bem/working/JSFP/climate/plot_locations.csv')
 
 df0 <- data.frame(
   plot = paste0(plot_locations$plot),
@@ -41,19 +40,6 @@ for (i in seq(nrow(df0))) {
 
 }
 
-fl0 <- '/media/bem/working/JSFP/climate/PRISM_ppt_30yr_normal_800mM2_annual_bil/PRISM_ppt_30yr_normal_800mM2_annual_bil.bil'
-fl1 <- '/media/bem/working/JSFP/climate/PRISM_tmean_30yr_normal_800mM2_annual_bil/PRISM_tmean_30yr_normal_800mM2_annual_bil.bil'
-prism1 <- extract_PRISM(fl0, sp2, by = 'plot')
-prism2 <- extract_PRISM(fl1, sp2, by = 'plot')
-colnames(prism1) <- c('plot', '30_yr_ppt_normal')
-colnames(prism2) <- c('plot', '30_yr_tmean_normal')
-
-PRISM_30yr_normals <- dplyr::left_join(prism1, prism2, by = 'plot')
-PRISM_30yr_normals[, c(2, 3)] <- round(PRISM_30yr_normals[, c(2, 3)], 2)
-use_data(PRISM_30yr_normals, overwrite = T)
-
-sp3 <- as.data.frame(sp2)
-colnames(sp3) <- c('PLOT', 'lon', 'lat')
-
-plot_coordinates <- sp3
-use_data(plot_coordinates, overwrite = T)
+sp2$plot <- JFSPdata1::key_plots(sp2$plot, key_fl = '/mnt/bem/working/JSFP/data_7May2020/JFSPdata1/inst/keys/plot_key.csv')
+plot_locations <- sp2
+save(plot_locations, file = '/mnt/bem/working/JSFP/climate/plot_locations.Rdata')
