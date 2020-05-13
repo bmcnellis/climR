@@ -2,11 +2,7 @@
 % Please edit documentation in R/spatial.R
 \name{spatial}
 \alias{spatial}
-\alias{gg_shapefile}
 \title{Spatial supporting functions}
-\usage{
-gg_shapefile(shp)
-}
 \description{
 Wrappers and supporting functions for the other spatial analysis packages (sp, rgdal, etc.)
 }
