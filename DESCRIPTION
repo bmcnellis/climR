@@ -8,10 +8,13 @@ Description: High-level (i.e. slow) processing functions for various forms of cl
     Use four spaces when indenting paragraphs within the Description.
 License: GPL-3
 Requires: R (>= 3.6.3)
-Imports: rgdal (>= 1.4),
+Imports: 
+    ClelandEcoregions (>= 1.0),
+    rgdal (>= 1.4),
     sp (>= 1.4),
     raster (>= 3.1),
-    ncdf4 (>= 1.17)
+    ncdf4 (>= 1.17),
+    rgeos (>= 0.5)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
