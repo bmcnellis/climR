@@ -85,12 +85,14 @@ subset_gridMET_by_latlon <- function(coords, by, data_dir, vars, yrs) {
   max_ind <- length(vars) * length(yrs) * nrow(coords)
   for (i in seq_along(vars)) {
     ii <- vars[i]
+    cat('\n\nvar:', ii, '\n')
     var_dir <- paste0(data_dir, '/', ii)
     fls <- list.files(var_dir)
     fli <- fls[grep(ii, fls)]
 
     for (j in seq_along(yrs)) {
       jj <- yrs[j]
+      cat('\nyear:', jj, '\n')
       flj <- fli[grep(jj, fli)]
       flj0 <- paste0(var_dir, '/', flj)
 
@@ -103,7 +105,7 @@ subset_gridMET_by_latlon <- function(coords, by, data_dir, vars, yrs) {
       lats <- ncj$dim$lat$vals
 
       for (k in seq(nrow(coords))) {
-        ct_prog <- format(ind / max_ind * 100, digits = 2, nsmall = 2)
+        ct_prog <- format((ind / max_ind) * 100, digits = 2, nsmall = 2)
         cat('\r', ct_prog, '%', rep(' ', 10))
 
         klon <- coords[k, 'lon']
@@ -133,7 +135,7 @@ subset_gridMET_by_latlon <- function(coords, by, data_dir, vars, yrs) {
 
           out_array[i, j, k, ] <- ncvark
 
-        } else {
+        } else if (length(ncvark) == 365) {
           out_array[i, j, k, ] <- ncvark
         }
 
